@@ -10,7 +10,7 @@ public class MemberService implements Service{
 	private Log log = LogFactory.getLog(getClass());
 	public MemberService(Dao dao){
 		this.dao = dao;
-		log.debug(dao+"주입");
+		log.info(dao+"주입");
 	}
 
 	@Override

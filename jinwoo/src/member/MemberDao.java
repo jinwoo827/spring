@@ -22,14 +22,14 @@ public class MemberDao implements Dao {
 	//Dao에 데이터 소스 주입
 	public MemberDao(DataSource dataSource) {
 		this.dataSource = dataSource;
-		log.debug(dataSource + "주입완료");
+		log.info(dataSource + "주입완료");
 	}
 	
 	//커넥션 연결
 	private void con() {
 		if (conn == null) {
 			conn = DataSourceUtils.getConnection(dataSource);
-			log.debug(conn + "커넥션생성");
+	//		log.info(conn + "커넥션생성");
 		}
 	}
 	
@@ -37,7 +37,8 @@ public class MemberDao implements Dao {
 	private void discon() {
 		if (conn != null) {
 			DataSourceUtils.releaseConnection(conn, dataSource);
-			log.debug(conn + "디스컨");
+			conn = null;
+	//		log.info(conn + "디스컨");
 		}
 	}
 		
@@ -45,7 +46,7 @@ public class MemberDao implements Dao {
 	private Member makeMemberByResultSet(ResultSet rs){
 		Member m = null;
 		try{			
-			while(rs.next()){
+		
 			m = new Member();
 			m.setUserId(rs.getString(1));
 			m.setUserPwd(rs.getString(2));
@@ -53,7 +54,7 @@ public class MemberDao implements Dao {
 			m.setUserMsg(rs.getString(4));
 			m.setUserDate(rs.getDate(5));
 			m.setUserType(rs.getInt(6));
-			}
+		
 		
 		} catch (SQLException e){
 			e.printStackTrace();
@@ -113,6 +114,7 @@ public class MemberDao implements Dao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			rs = pstmt.executeQuery();
+			
 			if (rs.next()) {
 	//			m = new Member(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5),rs.getInt(6));
 				m = this.makeMemberByResultSet(rs);
@@ -124,6 +126,7 @@ public class MemberDao implements Dao {
 		} finally {
 			this.discon();
 		}
+	
 		return m;
 	}
 
@@ -151,7 +154,7 @@ public class MemberDao implements Dao {
 	public boolean login(String userId, String userPwd) {
 		// TODO Auto-generated method stub
 		boolean flag = false;
-		String sql = "select id from j_member where userId=? and userPwd=?";
+		String sql = "select userid from j_member where userId=? and userPwd=?";
 		try{
 			this.con();
 			pstmt = conn.prepareStatement(sql);
@@ -196,7 +199,7 @@ public class MemberDao implements Dao {
 	public String checkId(String userId) {
 		// TODO Auto-generated method stub
 		String id = "";
-		String sql = "select id from j_member where userId=?";
+		String sql = "select userid from j_member where userId=?";
 		try{
 			this.con();
 			pstmt = conn.prepareStatement(sql);

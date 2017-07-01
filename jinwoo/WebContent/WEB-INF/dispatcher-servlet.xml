@@ -35,15 +35,34 @@
 	</property>
 </bean>
 
+
+<!-- memberDao -->
 <bean id="memberDao" class="member.MemberDao">
 	<constructor-arg ref="dataSource"></constructor-arg>
 </bean>
 
+<!-- memberService -->
 <bean id="memberService" class="member.MemberService">
 	<constructor-arg ref="memberDao"></constructor-arg>
 </bean>
 
+<!-- memberController -->
 <bean id="memberContrller" class="member.MemberController">
 	<constructor-arg ref="memberService"></constructor-arg>
 </bean>
+
+<!-- boardDao -->
+<bean id="boardDao" class="board.BoardDao">
+	<property name="dataSource" ref="dataSource"></property>
+</bean>
+<!-- boardService -->
+<bean id="boardService" class="board.BoardService">
+	<constructor-arg ref="boardDao"></constructor-arg>
+</bean>
+<!-- boardContrller -->
+<bean id="boardController" class="board.BoardController">
+	<constructor-arg ref="boardService"></constructor-arg>
+</bean>
+
+
 </beans>
