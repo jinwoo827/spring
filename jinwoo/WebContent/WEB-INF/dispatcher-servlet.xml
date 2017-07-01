@@ -4,4 +4,46 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
+<!--  데이타 소스  빈-->
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName">
+		<value>oracle.jdbc.driver.OracleDriver</value>
+	</property>
+	<property name="url">
+		<value>jdbc:oracle:thin:@localhost:1521:xe</value>
+	</property>
+	<property name="username">
+		<value>hr</value>
+	</property>
+	<property name="password">
+		<value>hr</value>
+	</property>
+</bean>
+
+<!-- 뷰리솔버 빈 -->
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix" value="/member/"></property>
+	<property name="suffix" value=".jsp"></property>
+</bean>
+
+<!-- validate -->
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	<property name="basenames">
+		<list>
+			<value>messages.validation</value>
+		</list>
+	</property>
+</bean>
+
+<bean id="memberDao" class="member.MemberDao">
+	<constructor-arg ref="dataSource"></constructor-arg>
+</bean>
+
+<bean id="memberService" class="member.MemberService">
+	<constructor-arg ref="memberDao"></constructor-arg>
+</bean>
+
+<bean id="memberContrller" class="member.MemberController">
+	<constructor-arg ref="memberService"></constructor-arg>
+</bean>
 </beans>
