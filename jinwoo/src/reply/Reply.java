@@ -72,7 +72,7 @@ public class Reply {
 
 	@Override
 	public String toString() {
-		return "Reply [rNum=" + rNum + ", rWriter=" + rWriter + ", rTitle=" + rTitle + ", rContent=" + rContent
+		return "[rNum=" + rNum + ", rWriter=" + rWriter + ", rTitle=" + rTitle + ", rContent=" + rContent
 				+ ", rDate=" + rDate + ", rBoardnum=" + rBoardnum + "]";
 	}
 	

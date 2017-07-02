@@ -17,15 +17,41 @@
 			var rBoardnum = f.rBoardnum.value;
 			
 			var data = "rWriter="+rWriter+"&rTitle="+rTitle+"&rContent="+rContent+"&rBoardnum="+rBoardnum;
-			alert(data);
+			
 			$.ajax({
 				type:"POST",
 				url: "/jinwoo/reply/insert.do?"+data,
 				//data: data,
 				success:function(data){
-					alert(data);
-					$('#reply').html(data);
+					console.log(data);
+					var list = $.parseJSON(data);
+					var str = "";
+					$('#reply').html("");
+					$.each(list, function(idx, obj) {					
+						str += "<tr><td>"+obj.rWriter+"</td><td>"+obj.rTitle+"</td><td>"+obj.rContent+"</td><td>"+obj.rBoardnum+"</td><td><input class='replyDelbtn' type='button' value='삭제'><input type='hidden' name='rNum' value="+obj.rNum+"></td></tr>";
+					});
+					$('#reply').append(str);
 				}
+			});
+		});
+		
+		$('.replyDelbtn').click(function(){
+			alert("----------------");
+			var rNum = $(this).next().val();
+			console.log(rNum);
+			$.ajax({
+				type:"POST",
+				url:"/jinwoo/reply/del.do?rNum="+rNum,
+				success:function(data){
+					var list = $.parseJSON(data);
+					var str = "";
+					$('#reply').html("");
+					$.each(list, function(idx, obj) {					
+						str += "<tr><td>"+obj.rWriter+"</td><td>"+obj.rTitle+"</td><td>"+obj.rContent+"</td><td>"+obj.rBoardnum+"</td><td><input class='replyDelbtn' type='button' value='삭제'><input type='hidden' name='rNum' value="+obj.rNum+"></td></tr>";
+					});
+					$('#reply').append(str);
+				}		
+						
 			});
 		});
 	});
@@ -60,19 +86,24 @@
 <%-- ${data.replyList } --%>
 <h3>댓글</h3>
 <table border="2">
+	
 	<tr>
 		<td>작성자</td>
 		<td>댓글제목</td>
 		<td>댓글내용</td>
 		<td>게시판번호</td>
+		<td>삭제버튼</td>
 	</tr>
-	
+	<tbody id="reply">
 
  <c:forEach var="list" items="${data.replyList }">
  	<tr>
 		<td>${list.rWriter }</td><td>${list.rTitle }</td><td>${list.rContent }</td><td>${list.rBoardnum }</td>
+		<td><input class="replyDelbtn" type="button" value="삭제"><input type="hidden" name="rNum" value="${list.rNum }"></td>
 	</tr>
-</c:forEach> 
+</c:forEach>
+	</tbody>
+	 
 </table>
 <hr>
 <form method="post" name="f" action="${pageContext.request.contextPath }/reply/insert.do">
@@ -94,6 +125,6 @@
 		</tr>
 	</table>
 </form>
-<div id="reply"></div>
+
 </body>
 </html>

@@ -99,6 +99,7 @@ public class ReplyDao implements Dao{
 		try{
 			con();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rNum);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
 				r = new Reply(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5),rs.getInt(6));
