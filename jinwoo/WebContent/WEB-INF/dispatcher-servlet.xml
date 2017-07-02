@@ -47,7 +47,7 @@
 </bean>
 
 <!-- memberController -->
-<bean id="memberContrller" class="member.MemberController">
+<bean id="memberController" class="member.MemberController">
 	<constructor-arg ref="memberService"></constructor-arg>
 </bean>
 
@@ -62,7 +62,19 @@
 <!-- boardContrller -->
 <bean id="boardController" class="board.BoardController">
 	<constructor-arg ref="boardService"></constructor-arg>
+	<constructor-arg ref="replyService"></constructor-arg>
 </bean>
 
-
+<!-- replyDao -->
+<bean id="replyDao" class="reply.ReplyDao">
+	<property name="dataSource" ref="dataSource"></property>
+</bean>
+<!-- replyService -->
+<bean id="replyService" class="reply.ReplyService">
+	<property name="replyDao" ref="replyDao"></property>
+</bean>
+<!-- replyController -->
+<bean id="replyController" class="reply.ReplyController">
+	<property name="replyService" ref="replyService"></property>
+</bean>
 </beans>

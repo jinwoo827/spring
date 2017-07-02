@@ -25,8 +25,10 @@
 	<tr>
 		<td colspan="2" align="center"><input type="submit" value="정보수정"></td>
 	</tr>
+	
 </table>
 </form>
+
 
 </body>
 </html>
