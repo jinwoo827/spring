@@ -17,21 +17,21 @@ public class MemberController {
 	private Service service;
 	public MemberController(Service service){
 		this.service = service;
-		log.info(service+"ÁÖÀÔ");
+		log.info(service+"ï¿½ï¿½ï¿½ï¿½");
 	
 	}
 	
 	@RequestMapping(value = "loginForm.do")
 	public String loginForm(){
-		return "loginForm";
+		return "member/loginForm";
 	}
 	@RequestMapping(value = "joinForm.do")
 	public String joinForm(){
-		return "joinForm";
+		return "member/joinForm";
 	}
 	@RequestMapping(value = "main.do")
 	public String main(){
-		return "login";
+		return "member/login";
 	}
 	
 	
@@ -43,7 +43,7 @@ public class MemberController {
 		session = req.getSession(false);
 		String userId = (String)session.getAttribute("id");	
 		Member m = service.findMember(userId);		
-		mav.setViewName("editForm");
+		mav.setViewName("member/editForm");
 		mav.addObject("m", m);
 		return mav;
 	}
@@ -60,10 +60,10 @@ public class MemberController {
 		boolean flag = service.insertMember(m);
 	
 		if(flag){
-			log.info(m+"°¡ÀÔ¿Ï·á");
+			log.info(m+"ï¿½ï¿½ï¿½Ô¿Ï·ï¿½");
 			return "redirect:/member/loginForm.do";
 		} else {
-			log.info("°¡ÀÔ½ÇÆÐ");
+			log.info("ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½");
 			return "redirect:/member/joinForm.do";
 		}
 		
@@ -75,7 +75,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		String str = service.checkId(userId);
 		mav.addObject("str", str);
-		mav.setViewName("checkId");
+		mav.setViewName("member/checkId");
 		return mav;
 	}
 	

@@ -26,7 +26,7 @@
 			 <tr>
 				<td><%=b.getbNum() %></td><td><%=b.getbWriter() %></td>
 				<td>
-				<a href="${pageContext.request.contextPath }/board/editForm.do?bNum="<%=b.getbNum()%>><%=b.getbTitle() %></a>
+				<a href="${pageContext.request.contextPath }/board/editForm.do?bNum=<%=b.getbNum()%>"><%=b.getbTitle() %></a>
 				</td>
 				<td><%=b.getbDate() %></td>
 			</tr> 

@@ -19,7 +19,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "writerForm.do")
 	public String writerForm(){
-		return "writerForm";
+		return "board/writerForm";
 	}
 	
 	
@@ -37,7 +37,7 @@ public class BoardController {
 	//	ArrayList<Reply> rList = rservice.
 		map.put("bList", bList);
 		mav.addObject("mapList", map);
-		mav.setViewName("list");
+		mav.setViewName("board/list");
 		System.out.println(map);
 		return mav;
 	}
@@ -48,7 +48,7 @@ public class BoardController {
 		Board b = service.findBoard(bNum);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("b", b);
-		mav.setViewName("editForm");
+		mav.setViewName("board/editForm");
 		return mav;
 	}
 	@RequestMapping(value = "update.do")
